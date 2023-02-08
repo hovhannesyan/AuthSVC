@@ -1,6 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"net"
+	"os"
+	"time"
+
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/config"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/db"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/pb"
@@ -10,20 +15,37 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
-	"net"
-	"os"
 )
 
-func main() {
+var f *os.File
+
+func init() {
+	var err error
+	t := time.Now().Format("2006-01-02")
+
+	logFile := fmt.Sprintf("./log/log_%s.txt", t)
+	f, err = os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		fmt.Println("Failed to create logfile" + logFile)
+		panic(err)
+	}
+	logrus.SetOutput(f)
+
+	logrus.SetLevel(logrus.DebugLevel)
+
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	if err := config.LoadConfig(); err != nil {
-		logrus.Fatalln(err.Error())
+		logrus.Fatalln(err)
 	}
 
 	if err := godotenv.Load(); err != nil {
-		logrus.Fatalf("error loading.env file: %s", err.Error())
+		logrus.Fatalln("error loading.env file: %s", err)
 	}
+}
+
+func main() {
+	defer f.Close()
 
 	dbHandler := db.Init(db.Config{
 		Host:     viper.GetString("db.host"),

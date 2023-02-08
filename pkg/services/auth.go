@@ -2,11 +2,13 @@ package services
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/db"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/models"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/pb"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/utils"
-	"net/http"
+	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
@@ -16,6 +18,7 @@ type Server struct {
 }
 
 func (s *Server) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpResponse, error) {
+	logrus.Println("SignUp called")
 	var user models.User
 	var err error
 
@@ -44,6 +47,7 @@ func (s *Server) SignUp(ctx context.Context, req *pb.SignUpRequest) (*pb.SignUpR
 }
 
 func (s *Server) SignIn(ctx context.Context, req *pb.SignInRequest) (*pb.SignInResponse, error) {
+	logrus.Println("SignIn called")
 	var user models.User
 
 	if result := s.DbHandler.DB.Where(&models.User{Email: req.Email}).First(&user); result.Error != nil {
