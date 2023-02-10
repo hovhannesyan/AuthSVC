@@ -1,10 +1,1 @@
 port: ":8001"
-
-db:
-  username: "postgres"
-  host: "localhost"
-  port: "5436"
-  dbname: "risk_auth"
-  sslmode: "disable"
-
-expirationHours: 12

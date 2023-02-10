@@ -11,7 +11,6 @@ import (
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/pb"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/services"
 	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/utils"
-	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -38,21 +37,17 @@ func init() {
 	if err := config.LoadConfig(); err != nil {
 		logrus.Fatalln(err)
 	}
-
-	if err := godotenv.Load(); err != nil {
-		logrus.Fatalln("error loading.env file: %s", err)
-	}
 }
 
 func main() {
 	defer f.Close()
 
 	dbHandler := db.Init(db.Config{
-		Host:     viper.GetString("db.host"),
-		Port:     viper.GetString("db.port"),
-		Username: viper.GetString("db.username"),
-		DBName:   viper.GetString("db.dbname"),
-		SSLMode:  viper.GetString("db.sslmode"),
+		Host:     os.Getenv("DB_HOST"),
+		Port:     os.Getenv("DB_PORT"),
+		Username: os.Getenv("DB_USERNAME"),
+		DBName:   os.Getenv("DB_NAME"),
+		SSLMode:  os.Getenv("DB_SSL_MODE"),
 		Password: os.Getenv("DB_PASSWORD"),
 	})
 
