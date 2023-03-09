@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/hovhannesyan/AuthSVC/pkg/config"
@@ -74,7 +76,20 @@ func main() {
 
 	pb.RegisterAuthServiceServer(grpcServer, &s)
 
-	if err := grpcServer.Serve(lis); err != nil {
-		logrus.Fatalln("failed to serve", err.Error())
-	}
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		if err := grpcServer.Serve(lis); err != nil {
+			logrus.Fatalln("failed to serve", err.Error())
+		}
+	}()
+
+	<-sigs
+
+	fmt.Println("Stopping...")
+
+	grpcServer.GracefulStop()
+
+	fmt.Println("Done")
 }
