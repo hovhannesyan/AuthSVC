@@ -1,4 +1,4 @@
-module github.com/hovhannesyan/RiskIndex-AuthSVC
+module github.com/hovhannesyan/AuthSVC
 
 go 1.19
 

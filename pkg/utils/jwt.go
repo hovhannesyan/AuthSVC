@@ -3,7 +3,7 @@ package utils
 import (
 	"errors"
 	"github.com/golang-jwt/jwt"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/models"
+	"github.com/hovhannesyan/AuthSVC/pkg/models"
 	"time"
 )
 

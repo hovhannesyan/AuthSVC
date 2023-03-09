@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/models"
+	"github.com/hovhannesyan/AuthSVC/pkg/models"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

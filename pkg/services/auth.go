@@ -4,10 +4,10 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/db"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/models"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/pb"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/utils"
+	"github.com/hovhannesyan/AuthSVC/pkg/db"
+	"github.com/hovhannesyan/AuthSVC/pkg/models"
+	"github.com/hovhannesyan/AuthSVC/pkg/pb"
+	"github.com/hovhannesyan/AuthSVC/pkg/utils"
 	"github.com/sirupsen/logrus"
 )
 

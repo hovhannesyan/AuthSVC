@@ -6,11 +6,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/config"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/db"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/pb"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/services"
-	"github.com/hovhannesyan/RiskIndex-AuthSVC/pkg/utils"
+	"github.com/hovhannesyan/AuthSVC/pkg/config"
+	"github.com/hovhannesyan/AuthSVC/pkg/db"
+	"github.com/hovhannesyan/AuthSVC/pkg/pb"
+	"github.com/hovhannesyan/AuthSVC/pkg/services"
+	"github.com/hovhannesyan/AuthSVC/pkg/utils"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -53,7 +53,7 @@ func main() {
 
 	jwt := utils.JwtWrapper{
 		SecretKey:       os.Getenv("JWT_SECRET_KEY"),
-		Issuer:          "RiskIndex-AuthSVC",
+		Issuer:          "AuthSVC",
 		ExpirationHours: viper.GetInt64("ExpirationHours"),
 	}
 
